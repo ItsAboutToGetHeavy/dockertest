@@ -1,0 +1,13 @@
+sudo: required
+services:
+  - docker
+
+install:
+  - docker build -t loremipsum2254/dpw-devenv-travis -f devenv.Dockerfile .
+
+before_script:
+  - sed -i 's/loremipsum2254\/dpw-devenv/loremipsum2254\/dpw-devenv-travis/g' devtest.Dockerfile
+
+script:
+  - docker build -t loremipsum2254/dpw-devtest-travis -f devtest.Dockerfile .
+  - docker run loremipsum2254/dpw-devtest-travis
